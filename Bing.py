@@ -43,17 +43,17 @@ print (G+"""
 
 
 Go = urllib.request.build_opener()
-Go.addheaders = [('User-agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/73.0.3683.86 Chrome/73.0.3683.86 Safari/537.36')]
+Go.addheaders = [('User-agent', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36')]
 def Bing(Dork):
 	D = Dork.strip()
-	Dork = urllib.parse.quote(Dork.strip()+" .")
+	Dork = urllib.parse.quote(Dork.strip())
 	#print Dork
 	P = 0
 	Cou = 0
 	All = []
-	while P <= 950:
+	while P <= 1000:
 		try:
-			Chack = Go.open("https://www.bing.com/search?q="+Dork+"&count=50&first="+str(P)).read().decode("utf-8")
+			Chack = Go.open("https://www.bing.com/search?q="+Dork+"&count=50&first="+str(P)+"&go=Search&qs=ds&form=QBRE").read().decode("utf-8")
 			if "There are no results for" in Chack:
 				break
 			HTTP = re.findall('<h2><a href="http://(.*?)"', Chack)
@@ -86,7 +86,7 @@ try:
 	List=open(input(C+M+O+" List DORK : "),"r").readlines()
 except:
 	print (R+"File Not Found")
-Pool = SPEED(25)
+Pool = SPEED(20)
 Pool.map(Bing, List)
 Pool.close() 
 Pool.join()
